@@ -5,11 +5,12 @@
 ## Live Demo
 
 | Interface | URL |
+https://the-aurum-creations.netlify.app/
 |-----------|-----|
+
+Local Run
 | Store | `http://localhost:5000/` |
 | Admin Dashboard | `http://localhost:5000/admin` |
-
-> Deployment in progress — Railway/Render link coming soon.
 
 ---
 
