@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | The Aurum Creations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin-style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="logo-wrap">
+                <span class="logo-symbol">✦</span>
+                <span class="logo-text">AURUM <span class="logo-thin">CREATIONS</span></span>
+            </div>
+            <div class="topbar-status">
+                <span class="status-dot"></span>
+                <span class="status-label">Sistema activo</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <nav class="menu">
+            <p class="menu-section-label">VISTA GENERAL</p>
+            <button class="menu-btn active" data-view="resumen">
+                <span class="menu-icon">◈</span> Resumen
+            </button>
+            <button class="menu-btn" data-view="ventas">
+                <span class="menu-icon">◇</span> Ventas
+            </button>
+
+            <p class="menu-section-label">GESTIÓN</p>
+            <button class="menu-btn" data-view="productos">
+                <span class="menu-icon">◈</span> Productos
+            </button>
+            <button class="menu-btn" data-view="lotes">
+                <span class="menu-icon">◇</span> Lotes
+            </button>
+
+            <p class="menu-section-label">OPERACIONES</p>
+            <button class="menu-btn" data-view="movimientos">
+                <span class="menu-icon">◈</span> Movimientos
+            </button>
+            <button class="menu-btn" data-view="precios">
+                <span class="menu-icon">◇</span> Calculadora
+            </button>
+
+            <div class="menu-divider"></div>
+            <button class="menu-btn" data-view="configuracion">
+                <span class="menu-icon">⊙</span> Configuración
+            </button>
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <!-- ═══ RESUMEN ═══════════════════════════════════════════ -->
+        <div id="view-resumen" class="dashboard-view active">
+            <div class="view-header">
+                <h2 class="view-title">Resumen General</h2>
+                <span class="view-date" id="fecha-hoy"></span>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card" style="--delay:0ms">
+                    <span class="kpi-label">Ingresos del mes</span>
+                    <span class="kpi-value" id="kpi-ingresos">—</span>
+                    <span class="kpi-sub">MXN</span>
+                </div>
+                <div class="kpi-card" style="--delay:80ms">
+                    <span class="kpi-label">Stock total</span>
+                    <span class="kpi-value" id="kpi-stock">—</span>
+                    <span class="kpi-sub">unidades</span>
+                </div>
+                <div class="kpi-card" style="--delay:160ms">
+                    <span class="kpi-label">Productos activos</span>
+                    <span class="kpi-value" id="kpi-productos">—</span>
+                    <span class="kpi-sub">SKUs</span>
+                </div>
+                <div class="kpi-card" style="--delay:240ms">
+                    <span class="kpi-label">Lotes activos</span>
+                    <span class="kpi-value" id="kpi-lotes">—</span>
+                    <span class="kpi-sub">en inventario</span>
+                </div>
+            </div>
+            <div class="section-row">
+                <div class="panel panel-wide">
+                    <h3 class="panel-title">Inventario por colección</h3>
+                    <div id="resumen-colecciones" class="bar-list"></div>
+                </div>
+                <div class="panel">
+                    <h3 class="panel-title">Alertas de stock</h3>
+                    <div id="resumen-alertas" class="alert-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ VENTAS ════════════════════════════════════════════ -->
+        <div id="view-ventas" class="dashboard-view">
+            <div class="view-header">
+                <h2 class="view-title">Ventas</h2>
+            </div>
+            <div class="kpi-grid">
+                <div class="kpi-card" style="--delay:0ms">
+                    <span class="kpi-label">Ingresos del mes</span>
+                    <span class="kpi-value" id="ventas-ingresos">—</span>
+                    <span class="kpi-sub">MXN</span>
+                </div>
+                <div class="kpi-card" style="--delay:80ms">
+                    <span class="kpi-label">Ventas registradas</span>
+                    <span class="kpi-value" id="ventas-total">—</span>
+                    <span class="kpi-sub">transacciones</span>
+                </div>
+                <div class="kpi-card" style="--delay:160ms">
+                    <span class="kpi-label">Ganancia neta est.</span>
+                    <span class="kpi-value" id="ventas-ganancia">—</span>
+                    <span class="kpi-sub">MXN</span>
+                </div>
+            </div>
+            <div class="panel">
+                <h3 class="panel-title">Registrar venta</h3>
+                <div class="form-grid">
+                    <div class="field">
+                        <label class="field-label">SKU del producto</label>
+                        <input type="text" id="venta-sku" class="field-input" placeholder="AN-H1-01-SS">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Cantidad</label>
+                        <input type="number" id="venta-cantidad" class="field-input" placeholder="1" min="1">
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="registrarVenta()">Registrar venta</button>
+                <div id="venta-feedback" class="feedback-msg"></div>
+            </div>
+        </div>
+
+        <!-- ═══ PRODUCTOS ═════════════════════════════════════════ -->
+        <div id="view-productos" class="dashboard-view">
+            <div class="view-header">
+                <h2 class="view-title">Productos</h2>
+                <div class="header-actions">
+                    <button class="btn-ghost" onclick="toggleForm('form-producto')">+ Agregar producto</button>
+                </div>
+            </div>
+
+            <!-- FORM: Agregar producto -->
+            <div id="form-producto" class="panel form-panel hidden">
+                <h3 class="panel-title">Agregar producto</h3>
+                <div class="form-grid">
+                    <div class="field">
+                        <label class="field-label">SKU <span class="field-hint">— se traduce automáticamente</span></label>
+                        <input type="text" id="prod-sku" class="field-input" placeholder="AN-H1-01-SS" oninput="previewSku()">
+                        <span id="sku-preview" class="sku-preview"></span>
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Nombre comercial</label>
+                        <input type="text" id="prod-nombre" class="field-input" placeholder="Anillo Horus I">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Margen</label>
+                        <input type="number" id="prod-margen" class="field-input" placeholder="3.0" step="0.1">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Precio público (MXN)</label>
+                        <input type="number" id="prod-precio" class="field-input" placeholder="650.00" step="0.01">
+                    </div>
+                    <div class="field field-full calc-inline-panel">
+                        <label class="field-label">Calculadora rápida
+                            <span class="field-hint">— rellena precio automáticamente</span>
+                         </label>
+                         <div class="calc-inline-row">
+                             <div class="field">
+                                 <label class="field-label">Costo unitario</label>
+                                     <input type="number" id="prod-costo-calc" class="field-input"
+                                        placeholder="250.00" step="0.01"
+                                        oninput="calcularInline()">
+                                </div>
+                                 <div class="calc-inline-arrow">→</div>
+                                <div class="calc-inline-result" id="calc-inline-result">
+                                     <span class="calc-result-label">Precio sugerido</span>
+                                     <span class="calc-inline-value" id="calc-inline-precio">—</span>
+                                     <button class="btn-ghost btn-sm" type="button"
+                                        onclick="usarPrecioCalculado()">
+                                        Usar este precio
+                                     </button>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Material del dije</label>
+                        <input type="text" id="prod-mat-dije" class="field-input" placeholder="Swarovski">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Broches</label>
+                        <input type="text" id="prod-broches" class="field-input" placeholder="Langosta">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Dimensiones dije</label>
+                        <input type="text" id="prod-dim-dije" class="field-input" placeholder="24mm x 15mm">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Dimensiones cadena</label>
+                        <input type="text" id="prod-dim-cadena" class="field-input" placeholder="45 + 5cm">
+                    </div>
+                    <div class="field field-full">
+                        <label class="field-label">Descripción</label>
+                        <textarea id="prod-descripcion" class="field-input field-textarea" placeholder="Descripción para la tienda web..."></textarea>
+                    </div>
+                    <div class="field field-full">
+                        <label class="field-label">Imagen del producto</label>
+                            <div class="upload-wrap" id="upload-wrap">
+                                <input type="file" id="prod-imagen" accept="image/*"
+                                 onchange="previewImagen(this)">
+                        <label for="prod-imagen" class="upload-label">
+                             <span id="upload-text">Seleccionar imagen</span>
+                        </label>
+                             <img id="imagen-preview" class="imagen-preview hidden" alt="Preview">
+                            </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-primary" onclick="agregarProducto()">Guardar producto</button>
+                    <button class="btn-ghost" onclick="toggleForm('form-producto')">Cancelar</button>
+                </div>
+                <div id="prod-feedback" class="feedback-msg"></div>
+            </div>
+
+            <!-- FORM: Editar producto (se llena dinámicamente) -->
+            <div id="form-editar-producto" class="panel form-panel hidden">
+                <h3 class="panel-title">Editar producto — <span id="edit-sku-titulo" class="sku-preview"></span></h3>
+                <input type="hidden" id="edit-sku-original">
+                <div class="form-grid">
+                    <div class="field">
+                        <label class="field-label">Nombre comercial</label>
+                        <input type="text" id="edit-nombre" class="field-input">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Margen</label>
+                        <input type="number" id="edit-margen" class="field-input" step="0.1">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Precio público (MXN)</label>
+                        <input type="number" id="edit-precio" class="field-input" step="0.01">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Material del dije</label>
+                        <input type="text" id="edit-mat-dije" class="field-input">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Broches</label>
+                        <input type="text" id="edit-broches" class="field-input">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Dimensiones dije</label>
+                        <input type="text" id="edit-dim-dije" class="field-input">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Dimensiones cadena</label>
+                        <input type="text" id="edit-dim-cadena" class="field-input">
+                    </div>
+                    <div class="field field-full">
+                        <label class="field-label">Descripción</label>
+                        <textarea id="edit-descripcion" class="field-input field-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-primary" onclick="guardarEdicion()">Guardar cambios</button>
+                    <button class="btn-ghost" onclick="toggleForm('form-editar-producto')">Cancelar</button>
+                </div>
+                <div id="edit-feedback" class="feedback-msg"></div>
+            </div>
+
+            <!-- TABLA productos -->
+            <div class="panel">
+                <h3 class="panel-title">Catálogo <span id="prod-count" class="count-badge"></span></h3>
+                <div class="table-wrap">
+                    <table class="data-table" id="tabla-productos">
+                        <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Colección</th>
+                                <th>Material</th>
+                                <th>Margen</th>
+                                <th>Precio</th>
+                                <th>Visibilidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-productos">
+                            <tr><td colspan="9" class="table-empty">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ LOTES ═════════════════════════════════════════════ -->
+        <div id="view-lotes" class="dashboard-view">
+            <div class="view-header">
+                <h2 class="view-title">Lotes</h2>
+                <button class="btn-ghost" onclick="toggleForm('form-lote')">+ Registrar lote</button>
+            </div>
+
+            <!-- FORM: Registrar lote -->
+            <div id="form-lote" class="panel form-panel hidden">
+                <h3 class="panel-title">Registrar lote de compra</h3>
+                <div class="form-grid">
+                    <div class="field field-full">
+                         <label class="field-label">SKU de referencia</label>
+                     <div class="autocomplete-wrap">
+                        <input type="text" id="lote-sku" class="field-input"
+                         placeholder="Escribe o selecciona un SKU..."
+                         oninput="filtrarSkus(this.value)"
+                         autocomplete="off">
+                        <div id="sku-dropdown" class="sku-dropdown hidden"></div>
+                    </div>
+                    <div id="lote-producto-info" class="producto-info-tag hidden">
+                        <span id="lote-prod-nombre"></span>
+                        <span class="producto-info-sep">·</span>
+                        <span id="lote-prod-coleccion"></span>
+                        <span class="producto-info-sep">·</span>
+                        <span id="lote-prod-material"></span>
+                        <span class="producto-info-sep">·</span>
+                        Margen: <strong id="lote-prod-margen"></strong>
+                    </div>
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Unidades</label>
+                        <input type="number" id="lote-unidades" class="field-input" placeholder="22" min="1">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Costo empaque</label>
+                        <input type="number" id="lote-empaque" class="field-input" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Costo main/dije</label>
+                        <input type="number" id="lote-dije" class="field-input" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Costo cadena</label>
+                        <input type="number" id="lote-cadena" class="field-input" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Complementos</label>
+                        <input type="number" id="lote-complementos" class="field-input" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="field">
+                        <label class="field-label">Costo envío</label>
+                        <input type="number" id="lote-envio" class="field-input" placeholder="0.00" step="0.01">
+                    </div>
+                </div>
+                <div id="lote-preview" class="calc-preview hidden">
+                    <div class="calc-row"><span>Costo total lote</span><strong id="prev-costo-total">—</strong></div>
+                    <div class="calc-row"><span>Costo unitario</span><strong id="prev-costo-unit">—</strong></div>
+                    <div class="calc-row calc-row-accent"><span>Precio sugerido</span><strong id="prev-precio">—</strong></div>
+                    <div class="calc-row"><span>Ganancia unitaria</span><strong id="prev-ganancia-unit">—</strong></div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn-primary" onclick="registrarLote()">Registrar lote</button>
+                    <button class="btn-ghost" onclick="toggleForm('form-lote')">Cancelar</button>
+                </div>
+                <div id="lote-feedback" class="feedback-msg"></div>
+            </div>
+
+            <!-- TABLA lotes -->
+            <div class="panel">
+                <h3 class="panel-title">Historial de lotes <span id="lote-count" class="count-badge"></span></h3>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID Lote</th>
+                                <th>SKU</th>
+                                <th>Unidades</th>
+                                <th>Disponibles</th>
+                                <th>Costo unit.</th>
+                                <th>Precio sug.</th>
+                                <th>Ganancia unit.</th>
+                                <th>Estatus</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-lotes">
+                            <tr><td colspan="9" class="table-empty">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ MOVIMIENTOS ═══════════════════════════════════════ -->
+        <div id="view-movimientos" class="dashboard-view">
+            <div class="view-header">
+                <h2 class="view-title">Movimientos</h2>
+            </div>
+            <div class="section-row">
+                <div class="panel">
+                    <h3 class="panel-title">Registrar devolución</h3>
+                    <div class="form-grid">
+                        <div class="field field-full">
+                            <label class="field-label">ID del lote</label>
+                            <input type="text" id="dev-id-lote" class="field-input" placeholder="LOTE-AN-H1-01-SS-001">
+                        </div>
+                        <div class="field field-full">
+                            <label class="field-label">Unidades a devolver</label>
+                            <input type="number" id="dev-cantidad" class="field-input" placeholder="1" min="1">
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="registrarDevolucion()">Registrar devolución</button>
+                    <div id="dev-feedback" class="feedback-msg"></div>
+                </div>
+                <div class="panel">
+                    <h3 class="panel-title">Info</h3>
+                    <p class="panel-body-text">Las devoluciones reactivan el lote si estaba agotado y suman las unidades al stock disponible.<br><br>Para procesar una venta, ve a la sección <strong>Ventas</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CALCULADORA ═══════════════════════════════════════ -->
+        <div id="view-precios" class="dashboard-view">
+            <div class="view-header">
+                <h2 class="view-title">Calculadora de Precios</h2>
+            </div>
+            <div class="section-row">
+                <div class="panel">
+                    <h3 class="panel-title">Parámetros</h3>
+                    <div class="form-grid">
+                        <div class="field field-full">
+                            <label class="field-label">Costo unitario (MXN)</label>
+                            <input type="number" id="calc-costo" class="field-input" placeholder="250.00" step="0.01" oninput="calcularPrecio()">
+                        </div>
+                        <div class="field field-full">
+                            <label class="field-label">Margen</label>
+                            <input type="number" id="calc-margen" class="field-input" placeholder="3.0" step="0.1" oninput="calcularPrecio()">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-accent">
+                    <h3 class="panel-title">Resultado</h3>
+                    <div class="calc-result-grid">
+                        <div class="calc-result-item">
+                            <span class="calc-result-label">Precio sugerido</span>
+                            <span class="calc-result-value" id="calc-precio">—</span>
+                        </div>
+                        <div class="calc-result-item">
+                            <span class="calc-result-label">Ganancia unitaria</span>
+                            <span class="calc-result-value" id="calc-ganancia">—</span>
+                        </div>
+                        <div class="calc-result-item">
+                            <span class="calc-result-label">Ganancia x7 uds</span>
+                            <span class="calc-result-value" id="calc-total">—</span>
+                        </div>
+                    </div>
+                    <p class="calc-note">Fórmula incluye comisión Stripe: 3.6% + $3 MXN</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ CONFIGURACIÓN ═════════════════════════════════════ -->
+        <div id="view-configuracion" class="dashboard-view">
+            <div class="view-header">
+                <h2 class="view-title">Configuración</h2>
+            </div>
+
+            <!-- Panel sistema -->
+            <div class="panel" style="margin-bottom:12px">
+                <h3 class="panel-title">Sistema</h3>
+                <p class="panel-body-text">
+                    Base de datos: <strong>JSON local</strong> — migración a SQLite pendiente.<br>
+                    Backend: <strong>Flask + Python</strong><br>
+                    Versión dashboard: <strong>1.4.1</strong>
+                </p>
+            </div>
+
+            <div class="section-row">
+
+                <!-- TIPOS DE JOYA -->
+                <div class="panel">
+                    <div class="panel-title-row">
+                        <h3 class="panel-title" style="margin-bottom:0">Tipos de joya</h3>
+                        <button class="btn-ghost btn-sm" onclick="toggleForm('form-tipo')">+ Agregar</button>
+                    </div>
+                    <div id="form-tipo" class="inline-form hidden">
+                        <input type="text" id="tipo-clave" class="field-input" placeholder="Clave (ej. PD)">
+                        <input type="text" id="tipo-valor" class="field-input" placeholder="Nombre (ej. Pendiente)">
+                        <button class="btn-primary btn-sm" onclick="agregarCatalogo('tipo')">Agregar</button>
+                    </div>
+                    <div id="lista-tipos" class="catalogo-list"></div>
+                    <div id="tipo-feedback" class="feedback-msg"></div>
+                </div>
+
+                <!-- COLECCIONES -->
+                <div class="panel">
+                    <div class="panel-title-row">
+                        <h3 class="panel-title" style="margin-bottom:0">Colecciones</h3>
+                        <button class="btn-ghost btn-sm" onclick="toggleForm('form-coleccion')">+ Agregar</button>
+                    </div>
+                    <div id="form-coleccion" class="inline-form hidden">
+                        <input type="text" id="col-clave" class="field-input" placeholder="Clave (ej. H6)">
+                        <input type="text" id="col-valor" class="field-input" placeholder="Nombre (ej. Thoth)">
+                        <button class="btn-primary btn-sm" onclick="agregarCatalogo('coleccion')">Agregar</button>
+                    </div>
+                    <div id="lista-colecciones" class="catalogo-list"></div>
+                    <div id="coleccion-feedback" class="feedback-msg"></div>
+                </div>
+
+                <!-- MATERIALES -->
+                <div class="panel">
+                    <div class="panel-title-row">
+                        <h3 class="panel-title" style="margin-bottom:0">Materiales</h3>
+                        <button class="btn-ghost btn-sm" onclick="toggleForm('form-material')">+ Agregar</button>
+                    </div>
+                    <div id="form-material" class="inline-form hidden">
+                        <input type="text" id="mat-clave" class="field-input" placeholder="Clave (ej. GO)">
+                        <input type="text" id="mat-valor" class="field-input" placeholder="Nombre (ej. Oro 14k)">
+                        <button class="btn-primary btn-sm" onclick="agregarCatalogo('material')">Agregar</button>
+                    </div>
+                    <div id="lista-materiales" class="catalogo-list"></div>
+                    <div id="material-feedback" class="feedback-msg"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='admin-script.js') }}"></script>
+</body>
+</html>

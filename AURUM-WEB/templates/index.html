@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio | The Aurum Creations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+</head>
+
+<!-- data-page: le dice a script.js qué catálogo cargar -->
+<body data-page="index">
+
+<!-- ══ MODAL CARRITO — una sola instancia por página ══ -->
+<div id="modal-carrito" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Tu Carrito</h2>
+        <div id="lista-carrito"></div>
+        <div class="modal-footer">
+            <p class="total-texto">Total: <span id="total-precio">$0</span> MXN</p>
+            <a href="{{ url_for('ver_pago') }}" class="btn-checkout">Finalizar Compra</a>
+        </div>
+    </div>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='imgs/logo-aurum.png') }}" alt="Logo The Aurum" class="logo-img">
+        <span class="logo-text">THE AURUM</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="{{ url_for('index') }}">Inicio</a></li>
+        <li><a href="{{ url_for('ver_anillos') }}">Anillos</a></li>
+        <li><a href="{{ url_for('ver_collares') }}">Collares</a></li>
+        <li><a href="{{ url_for('ver_brazaletes') }}">Brazaletes</a></li>
+        <li><a href="#contacto-seccion">Contacto</a></li>
+        <li>
+            <button id="cart-btn" class="nav-cart-icon">
+                BOLSA (<span id="cart-count">0</span>)
+            </button>
+        </li>
+    </ul>
+</nav>
+<div class="linea-dorada"></div>
+
+<!-- ══ DESCRIPCIÓN DE LA EMPRESA ══ -->
+<section class="info-empresa">
+    <p>En The Aurum Creations, creemos que la belleza reside en la simplicidad. Diseñamos piezas minimalistas que trascienden el tiempo, fusionando la modernidad con la elegancia pura.</p>
+</section>
+
+<!-- ══ PRODUCTOS DESTACADOS — dinámicos desde /api/inventario ══ -->
+<section class="categoria">
+    <h2>Los Iconos de Oro</h2>
+    <!--
+        ⚠️  REVISAR MANUALMENTE: este grid se llena automáticamente
+        con los primeros 4 productos visibles del catálogo.
+        Si quieres mostrar productos específicos aquí, agrega una
+        ruta /api/inventario/destacados en app.py que filtre por
+        un campo "destacado": true en el JSON.
+    -->
+    <div class="grid-productos" id="grid-productos-dinamico">
+        <!-- script.js → cargarCatalogo() inserta las tarjetas aquí -->
+        <p class="cargando-catalogo">Cargando productos...</p>
+    </div>
+</section>
+
+<!-- ══ BANNER ══ -->
+<section class="banner-full">
+    <div class="banner-content">
+        <h2>Colección "Sol y Luna"</h2>
+        <p>Diseñada para almas gemelas. Anillos, collares y pulseras compartidas con temática celestial. Disponibles en Acero Inoxidable y Plata .925. Celebra tu conexión.</p>
+        <button class="btn-light">Descubrir Colección</button>
+    </div>
+</section>
+
+<!-- ══ CONTACTO ══ -->
+<section id="contacto-seccion" class="contacto-seccion">
+    <div class="contacto-container">
+        <form id="form-contacto">
+            <h3>Contáctenos</h3>
+            <input type="text" placeholder="Nombre completo" required>
+            <input type="email" placeholder="Correo electrónico" required>
+            <textarea placeholder="¿En qué podemos ayudarte?" required></textarea>
+            <button type="submit" class="btn-primary">Enviar Mensaje</button>
+        </form>
+        <div class="redes">
+            <h3>Conecta con nosotros</h3>
+            <a href="#">Instagram</a>
+            <a href="#">WhatsApp</a>
+            <p>Email: contacto@theaurum.com</p>
+        </div>
+    </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer-profesional">
+    <div class="footer-col">
+        <h4>Servicio al Cliente</h4>
+        <ul>
+            <li>Llámenos: 9984804552</li>
+            <li>Catálogo</li>
+            <li>Preguntas y sugerencias</li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <h4>Nuestra Empresa</h4>
+        <ul>
+            <li>Materiales</li>
+            <li>Sustentabilidad</li>
+            <li>Políticas y garantías</li>
+        </ul>
+    </div>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"defer></script>
+</body>
+</html>

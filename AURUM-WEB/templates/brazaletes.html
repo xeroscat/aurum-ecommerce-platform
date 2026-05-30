@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brazaletes | The Aurum Creations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+</head>
+
+<body data-page="brazaletes">
+
+<!-- ══ MODAL CARRITO ══ -->
+<div id="modal-carrito" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Tu Carrito</h2>
+        <div id="lista-carrito"></div>
+        <div class="modal-footer">
+            <p class="total-texto">Total: <span id="total-precio">$0</span> MXN</p>
+            <a href="{{ url_for('ver_pago') }}" class="btn-checkout">Finalizar Compra</a>
+        </div>
+    </div>
+</div>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='imgs/logo-aurum.png') }}" alt="Logo The Aurum" class="logo-img">
+        <span class="logo-text">THE AURUM</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="{{ url_for('index') }}">Inicio</a></li>
+        <li><a href="{{ url_for('ver_anillos') }}">Anillos</a></li>
+        <li><a href="{{ url_for('ver_collares') }}">Collares</a></li>
+        <li><a href="{{ url_for('ver_brazaletes') }}">Brazaletes</a></li>
+        <li>
+            <button id="cart-btn" class="nav-cart-icon">
+                BOLSA (<span id="cart-count">0</span>)
+            </button>
+        </li>
+    </ul>
+</nav>
+<div class="linea-dorada"></div>
+
+<!-- ══ BANNER ══ -->
+<section class="banner-categoria" style="--banner-img: url('imgs/banner-brazaletes.jpg');">
+    <div class="banner-content">
+        <h2>Nueva Llegada: Esclava Orion</h2>
+    </div>
+</section>
+
+<section class="intro-catalogo">
+    <p>Descubre piezas que abrazan tu muñeca con sofisticación. Desde diseños rígidos hasta cadenas delicadas en Plata .925.</p>
+</section>
+
+<!-- ══ CATÁLOGO DINÁMICO ══ -->
+<section class="categoria">
+    <h2>Todos los Brazaletes</h2>
+    <div class="grid-catalogo-completo" id="grid-catalogo-dinamico">
+        <p class="cargando-catalogo">Cargando productos...</p>
+    </div>
+</section>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

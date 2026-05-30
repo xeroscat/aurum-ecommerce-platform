@@ -1,0 +1,705 @@
+/* ══════════════════════════════════════════════════════════════
+   ESTILOS GLOBALES
+   ══════════════════════════════════════════════════════════════ */
+
+*,
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #fafafa;
+    color: #333;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TIPOGRAFÍA
+   ══════════════════════════════════════════════════════════════ */
+h1, h2, h3, .logo {
+    font-family: 'Montserrat',sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #111;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-weight: 200;
+    letter-spacing: 6px;
+}
+
+p, a, li, label {
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LÍNEA DORADA
+   ══════════════════════════════════════════════════════════════ */
+
+.linea-dorada {
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #d4af37, #f1e5ac, #d4af37);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NAVBAR
+   ══════════════════════════════════════════════════════════════ */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    letter-spacing: 6px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 30px;
+    margin: 0;
+    margin-left: auto;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 300;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: opacity 0.3s;
+}
+
+.nav-links li a:hover {
+    opacity: 0.5;
+}
+
+.nav-cart-icon {
+    background-color: transparent;
+    color: #111;
+    border: 1px solid #111;
+    padding: 7px 15px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.4s ease;
+}
+
+.nav-cart-icon:hover {
+    background-color: #111;
+    color: #fff;
+}
+
+#cart-count {
+    font-weight: 400;
+    border-left: 1px solid currentColor;
+    padding-left: 10px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+     BOTONES
+   ══════════════════════════════════════════════════════════════ */
+
+.btn-add,
+.btn-checkout,
+.btn-regresar {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: transparent;
+    color: #111;
+    border: 1px solid #111;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-size: 0.8rem;
+    outline: none;
+}
+
+.btn-primary,
+.btn-add,
+.btn-checkout {
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.btn-add:hover,
+.btn-checkout:hover {
+    background-color: #111;
+    color: #fff;
+}
+
+.btn-checkout {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    background-color: #111;
+    color: #fff;
+}
+
+.btn-checkout:hover {
+    background-color: #333;
+}
+
+.btn-regresar {
+    border: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    transition: opacity 0.3s ease;
+}
+
+.btn-regresar:hover {
+    opacity: 0.5;
+    background-color: transparent;
+    color: #111;
+}
+
+.btn-regresar span {
+    font-size: 1.2rem;
+}
+
+.btn-light {
+    background: #fff;
+    color: #111;
+    padding: 15px 30px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-confirmar {
+    background: #d4af37;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.btn-confirmar:hover {
+    background: #b08d26;
+}
+
+.regresar-contenedor {
+    margin: 20px 0;
+    padding: 0 5%;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BANNERS
+   ══════════════════════════════════════════════════════════════ */
+
+.banner-full { /* Banner de portada o sección principal */
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('imgs/banner-sol-luna.jpg') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.banner-full h2 {
+    font-size: 3.5rem;
+}
+
+.banner-categoria { /* Banner específico para cada categoría disposicion general */
+    height: 400px;
+     background: var(--banner-img);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.banner-categoria::before { /* Capa de superposición para mejorar legibilidad */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.banner-content {
+    text-align: center;
+    max-width: 600px;
+    padding: 20px;
+    z-index: 1;
+}
+
+.banner-content h2 {
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: 280;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.banner-content p {
+    color: #fff;
+    margin-top: 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SECCIONES Y GRIDS
+   ══════════════════════════════════════════════════════════════ */
+
+.info-empresa,
+.intro-catalogo {
+    text-align: center;
+    padding: 40px 10%;
+    font-style: italic;
+    color: #555;
+}
+
+.categoria {
+    padding: 50px 5%;
+    text-align: center;
+}
+
+.grid-productos,
+.grid-categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.grid-catalogo-completo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.cat-item {
+    background: #eaeaea;
+    padding: 40px;
+    text-decoration: none;
+    color: #111;
+    display: block;
+    border-radius: 5px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TARJETAS DE PRODUCTO
+   ══════════════════════════════════════════════════════════════ */
+
+.tarjeta-producto {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #eee;
+    text-align: center;
+    overflow: hidden;
+}
+
+.tarjeta-producto img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    filter: grayscale(20%);
+    transition: filter 0.3s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.tarjeta-producto img:hover {
+    filter: grayscale(0%);
+}
+
+.tarjeta-producto:hover img {
+    transform: scale(1.05);
+}
+
+.desc-generica {
+    font-size: 0.8rem;
+    color: #777;
+    margin: 8px 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SECCIÓN DE PAGO
+   ══════════════════════════════════════════════════════════════ */
+
+.pago-main {
+    padding: 50px 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.pago-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1000px;
+    width: 100%;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.pago-form-sec {
+    flex: 1;
+}
+
+.pago-resumen-sec {
+    flex: 1;
+    background: #fcfcfc;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Tarjeta visual */
+.tarjeta-visual {
+    width: 90%;
+    height: 210px;
+    background: linear-gradient(135deg, #222, #555454);
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.chip {
+    width: 40px;
+    height: 30px;
+    background: #d4af37;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.numero-falso {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 4px;
+    min-height: 1.5em;
+    color: #C0C0C0;
+    text-shadow:
+        1px 1px 1px rgba(255, 255, 255, 0.2),
+        -1px -1px 1px rgba(0, 0, 0, 0.5),
+        0px 0px 5px rgba(192, 192, 192, 0.3);
+    font-weight: bold;
+    font-size: 1.2rem;
+    filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.8));
+}
+
+.card-logo {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 60px;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.card-logo img,
+.card-logo svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.logo-entrada {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.logo-oculto {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.datos-falsos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* Formulario de pago */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.flex-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.detalle-lista p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.total-pago {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 15px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CONTACTO
+   ══════════════════════════════════════════════════════════════ */
+
+.contacto-seccion {
+    padding: 50px 5%;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.contacto-container {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#form-contacto {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 15px;
+}
+
+#form-contacto input,
+#form-contacto textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.redes {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.redes a {
+    color: #111;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════════ */
+
+.footer-profesional {
+    background: #111;
+    color: #fff;
+    padding: 40px 5%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-col h4 {
+    border-bottom: 1px solid #d4af37;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-col ul {
+    list-style: none;
+    line-height: 2;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MODAL DEL CARRITO
+  ══════════════════════════════════════════════════════════════*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal.open {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.total-texto {
+    font-weight: bold;
+    margin: 20px 0;
+    font-size: 1.2rem;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE — MÓVIL (max-width: 768px)
+   ══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 15px 2%;
+        gap: 10px;
+    }
+
+    .nav-links {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-links li a {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+    }
+
+    .nav-cart-icon {
+        padding: 5px 10px;
+        font-size: 0.65rem;
+    }
+
+    .grid-catalogo-completo,
+    .categoria .grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+
+    .tarjeta-producto {
+        padding: 5px;
+    }
+
+    .tarjeta-producto h3 {
+        font-size: 0.8rem;
+    }
+
+    .tarjeta-producto img {
+        width: 100%;
+        height: auto;
+    }
+
+    .precio,
+    .desc-generica {
+        font-size: 0.7rem;
+    }
+
+    .btn-add {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+
+    .banner-content h2 {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+
+    .banner-content p {
+        font-size: 0.8rem;
+        padding: 0 10px;
+    }
+
+    .banner-categoria {
+        height: 300px;
+    }
+}
